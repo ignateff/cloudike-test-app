@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {ConfigService} from "../config.service";
+import {ToastrService} from "ngx-toastr";
 
 export type AuthSuccessResult = {
   created: number,
@@ -24,7 +25,8 @@ export class AuthService {
 
   constructor(private http: HttpClient,
               private router: Router,
-              private config: ConfigService) {
+              private config: ConfigService,
+              private toastr: ToastrService) {
   }
 
   login(login: string, password: string) {
@@ -33,7 +35,7 @@ export class AuthService {
     } else if (this.isLoginPhone(login)) {
       this.loginByPhone(login, password)
     } else {
-      console.log('wrong data');
+      this.toastr.warning('Pleas write your email or phone number')
     }
   }
 
@@ -59,6 +61,10 @@ export class AuthService {
         }
       }, (error) => {
         this.clearUserData();
+        const errorMsg = error.statusText;
+        if(errorMsg){
+          this.toastr.error('Sign-in error: '+ errorMsg);
+        }
         console.log('error', error);
       })
   }
