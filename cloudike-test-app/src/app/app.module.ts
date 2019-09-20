@@ -9,11 +9,13 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { PreviewComponent } from './preview/preview.component';
 @NgModule({
   declarations: [
     AppComponent,
     SignInComponent,
-    TimelineComponent
+    TimelineComponent,
+    PreviewComponent
   ],
   imports: [
     BrowserModule,

@@ -10,17 +10,18 @@ import {ToastrService} from "ngx-toastr";
 })
 export class TimelineComponent implements OnInit {
   public groups = [];
+
   constructor(
     private auth: AuthService,
     private timelineService: TimelineService,
-    private toastr: ToastrService) {
+  ) {
   }
 
   ngOnInit() {
-    this.toastr.success('Hello world!', 'Toastr fun!');
     this.timelineService.getPhotos().subscribe((photos) => {
       console.log('get photos result', photos);
       this.groups = this.timelineService.groupByMonths(photos);
+      this.preload(this.groups);
       console.log('groups', this.groups);
     }, (error) => {
       console.log('get photos error', error);
@@ -29,6 +30,16 @@ export class TimelineComponent implements OnInit {
 
   logout() {
     this.auth.logout();
+  }
+
+  preload(groups) {
+    const images = [];
+    groups.forEach((group) => {
+      group.items.forEach((item, index) => {
+        images[index] = new Image();
+        images[index].src = item.image_preview.href
+      })
+    });
   }
 
 }
