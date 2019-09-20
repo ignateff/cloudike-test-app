@@ -1,0 +1,9 @@
+<p>timeline works!</p>
+<div class="month" *ngFor="let group of groups">
+  <h3>{{ group.month}}</h3>
+  <a [href]="image.image_preview.href" *ngFor="let image of group.items">
+    <img [src]="image.image_middle.href" alt="">
+  </a>
+</div>
+
+<button (click)="logout()">Logout</button>
