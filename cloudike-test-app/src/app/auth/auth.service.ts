@@ -29,16 +29,6 @@ export class AuthService {
               private toastr: ToastrService) {
   }
 
-  login(login: string, password: string) {
-    if (this.isLoginEmail(login)) {
-      this.loginByEmail(login, password)
-    } else if (this.isLoginPhone(login)) {
-      this.loginByPhone(login, password)
-    } else {
-      this.toastr.warning('Pleas write your email or phone number')
-    }
-  }
-
   logout() {
     this.clearUserData();
     if (!this.getLocalToken()) {
@@ -50,35 +40,41 @@ export class AuthService {
     return !!this.getLocalToken();
   }
 
-  private loginByEmail(email: string, password: string) {
-    const url = `${this.config.getBaseApiUrl()}/api/2/accounts/login/`;
-    this.http.post(url, {email, password})
-      .subscribe((result: AuthSuccessResult) => {
-        const {token, userid} = result;
-        if (token) {
-          this.saveUserDataLocally({token, userid});
-          this.router.navigateByUrl('');
-        }
-      }, (error) => {
-        this.clearUserData();
-        const errorMsg = error.statusText;
-        if(errorMsg){
-          this.toastr.error('Sign-in error: '+ errorMsg);
-        }
-        console.log('error', error);
-      })
+  public loginByEmail(email: string, password: string) {
+    const phone = '';
+    this.login({email, password, phone})
   }
 
-  private loginByPhone(phone: string, password: string) {
-    console.log('login by phone', phone);
+  public loginByPhone(phone: string, password: string) {
+    const email = '';
+    this.login({phone, password, email})
   }
 
-  private isLoginEmail(login: string) {
-    return true;
-  }
-
-  private isLoginPhone(login: string) {
-    return false;
+  private login({email, phone, password}) {
+    let loginObservable$ = null;
+    if (email) {
+      loginObservable$ = this.http.post(this.config.getLoginWithEmailUrl(), {email, password})
+    }
+    if (phone) {
+      loginObservable$ = this.http.post(this.config.getLoginWithPhoneUrl(), {phone, password})
+    }
+    if (loginObservable$) {
+      loginObservable$
+        .subscribe((result: AuthSuccessResult) => {
+          const {token, userid} = result;
+          if (token) {
+            this.saveUserDataLocally({token, userid});
+            this.router.navigateByUrl('');
+          }
+        }, (error) => {
+          this.clearUserData();
+          const errorMsg = error.statusText;
+          if (errorMsg) {
+            this.toastr.error('Sign-in error: ' + errorMsg);
+          }
+          console.log('error', error);
+        })
+    }
   }
 
   private saveUserDataLocally({token, userid}) {

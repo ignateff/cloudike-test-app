@@ -1,0 +1,101 @@
+:host {
+  display: flex;
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.sign-in {
+  $text-color: cornflowerblue;
+  $text-accent: #ffb847;
+  background-color: #f5fcff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 0 2px 2px #e2e2e2;
+  &__form {
+    display: flex;
+    flex-flow: column;
+  }
+  &__title {
+    margin: 0 0 10px 0;
+    font-size: 20px;
+    color: $text-color;
+    text-align: center;
+  }
+  &__switcher {
+    display: flex;
+    flex-flow: column;
+    margin-bottom: 10px;
+    &-label {
+      color: $text-color;
+      padding-bottom: 3px;
+    }
+    &-btn {
+      outline: none;
+      width: 50%;
+      box-sizing: border-box;
+      padding: 10px 15px;
+      border-radius: 3px;
+      border: 1px solid $text-accent;
+      background-color: $text-accent;
+      color: white;
+      cursor: pointer;
+      transition: background-color .3s ease;
+      &:first-child {
+        border-radius: 3px 0 0 3px;
+      }
+      &:last-child {
+        border-left: 1px solid white;
+        border-radius: 0 3px 3px 0;
+      }
+      &_active {
+        background-color: #f99f0f;
+      }
+
+    }
+    &-btn-group {
+      display: flex;
+    }
+  }
+  &__input-ctrl {
+    position: relative;
+    display: flex;
+    flex-flow: column;
+    padding-bottom: 16px;
+  }
+  &__label {
+    color: $text-color;
+    padding-bottom: 5px;
+  }
+  &__input {
+    padding: 10px 15px;
+    border-radius: 3px;
+    border: 1px solid #b2caf5;
+    &_error {
+      border-color: rgba(255, 0, 0, 0.4);
+      background-color: rgba(255, 0, 0, 0.05);
+    }
+  }
+  &__error {
+    position: absolute;
+    bottom: 0;
+    font-size: 12px;
+    color: red;
+  }
+  &__submit {
+    padding: 10px 15px;
+    border-radius: 3px;
+    border: 1px solid #b2caf5;
+    background-color: $text-color;
+    color: white;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: background-color .3s ease;
+    &:disabled {
+      background-color: gray;
+    }
+    &:hover {
+      background-color: lighten($text-color, 10px);
+    }
+  }
+}

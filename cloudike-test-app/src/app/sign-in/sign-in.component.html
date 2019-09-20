@@ -1,11 +1,50 @@
-<form [formGroup]="signInForm" (ngSubmit)="submitForm()">
-  <label>
-    Login:
-    <input type="text" formControlName="login">
-  </label>
-  <label>
-    Password:
-    <input type="text" formControlName="password">
-  </label>
-  <button>Submit</button>
-</form>
+<div class="sign-in">
+  <h1 class="sign-in__title">Sign In</h1>
+  <div class="sign-in__switcher">
+    <div class="sign-in__switcher-label">Sign in with</div>
+    <div class="sign-in__switcher-btn-group">
+      <button class="sign-in__switcher-btn" [ngClass]="{'sign-in__switcher-btn_active': signInType === 'email'}" (click)="signInWith('email')">Email</button>
+      <button class="sign-in__switcher-btn" [ngClass]="{'sign-in__switcher-btn_active': signInType === 'phone'}" (click)="signInWith('phone')">Phone</button>
+    </div>
+  </div>
+  <form class="sign-in__form" [formGroup]="signInForm" (ngSubmit)="submitForm()">
+    <div class="sign-in__input-ctrl" *ngIf="signInType === 'email'">
+      <label class="sign-in__label" for="email">Email</label>
+      <input id="email" class="sign-in__input" [ngClass]="{'sign-in__input_error':(email.invalid && (email.dirty || email.touched))}" type="text" formControlName="email">
+      <div *ngIf="email.invalid && (email.dirty || email.touched)"
+           class="sign-in__error">
+        <div *ngIf="email.errors.required">
+          Name is required.
+        </div>
+        <div *ngIf="email.errors.phoneValidator">
+          Login should be email
+        </div>
+      </div>
+    </div>
+    <div class="sign-in__input-ctrl" *ngIf="signInType === 'phone'">
+      <label class="sign-in__label" for="phone">Phone</label>
+      <input id="phone" class="sign-in__input" [ngClass]="{'sign-in__input_error':(phone.invalid && (phone.dirty || phone.touched))}" type="text" formControlName="phone">
+      <div *ngIf="phone.invalid && (phone.dirty || phone.touched)"
+           class="sign-in__error">
+        <div *ngIf="phone.errors.required">
+          Name is required.
+        </div>
+        <div *ngIf="phone.errors.phoneValidator">
+          Login should be phone number
+        </div>
+      </div>
+    </div>
+    <div class="sign-in__input-ctrl">
+      <label class="sign-in__label" for="password">Password:</label>
+      <input id="password" class="sign-in__input" [ngClass]="{'sign-in__input_error':(password.invalid && (password.dirty || password.touched))}"  type="text" formControlName="password">
+      <div *ngIf="password.invalid && (password.dirty || password.touched)"
+           class="sign-in__error">
+        <div *ngIf="password.errors.required">
+          Name is required.
+        </div>
+      </div>
+    </div>
+    <button [disabled]="!signInForm.valid" class="sign-in__submit">Submit</button>
+  </form>
+</div>
+
