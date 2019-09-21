@@ -1,3 +1,5 @@
+@import "../../shared/styles/variables";
+
 :host {
   display: flex;
   min-height: 100vh;
@@ -6,8 +8,6 @@
 }
 
 .sign-in {
-  $text-color: cornflowerblue;
-  $text-accent: #ffb847;
   position: relative;
   background-color: #f5fcff;
   padding: 30px;
@@ -85,20 +85,7 @@
     color: red;
   }
   &__submit {
-    padding: 10px 15px;
-    border-radius: 3px;
-    border: 1px solid #b2caf5;
-    background-color: $text-color;
-    color: white;
     margin-top: 10px;
-    cursor: pointer;
-    transition: background-color .3s ease;
-    &:disabled {
-      background-color: gray;
-    }
-    &:hover {
-      background-color: lighten($text-color, 10px);
-    }
   }
   &__spinner {
     top: 0;

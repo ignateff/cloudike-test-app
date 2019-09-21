@@ -1,1 +1,10 @@
-<router-outlet></router-outlet>
+<div class="app">
+  <header *ngIf="isLoggedIn" class="app__header">
+    <div class="app__logo">Cludike test app</div>
+    <button class="app__btn common__btn" (click)="logout()">Logout</button>
+  </header>
+  <main class="app__main">
+    <router-outlet></router-outlet>
+  </main>
+</div>
+

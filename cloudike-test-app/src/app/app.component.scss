@@ -1,0 +1,24 @@
+@import "../shared/styles/variables";
+
+.app{
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+  &__logo{
+    font-family: 'Poiret One', cursive;
+    font-size: 20px;
+    color: $text-color;
+  }
+  &__header{
+    background-color: #fff;
+    padding: 0 15px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &__main{
+    display: flex;
+    flex-flow: column;
+  }
+}

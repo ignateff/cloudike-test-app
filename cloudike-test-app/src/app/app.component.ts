@@ -1,10 +1,24 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {AuthService} from "./auth/auth.service";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  title = 'cloudike-test-app';
+export class AppComponent implements OnInit{
+  isLoggedIn: boolean;
+  constructor(private auth: AuthService) {
+
+  }
+
+  ngOnInit(){
+    this.auth.isLoggedIn$.subscribe((value)=>{
+      this.isLoggedIn = value;
+    });
+  }
+
+  logout() {
+    this.auth.logout();
+  }
 }

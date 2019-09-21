@@ -1,0 +1,19 @@
+@import "variables";
+
+.common{
+  &__btn{
+    padding: 10px 15px;
+    border-radius: 3px;
+    border: 1px solid #b2caf5;
+    background-color: $text-color;
+    color: white;
+    cursor: pointer;
+    transition: background-color .3s ease;
+    &:disabled {
+      background-color: gray;
+    }
+    &:hover {
+      background-color: lighten($text-color, 10px);
+    }
+  }
+}

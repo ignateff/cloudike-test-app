@@ -2,9 +2,8 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {ConfigService} from "../config.service";
-import {ToastrService} from "ngx-toastr";
 import {catchError, tap} from "rxjs/operators";
-import {throwError} from "rxjs";
+import {BehaviorSubject, throwError} from "rxjs";
 
 export type AuthSuccessResult = {
   created: number,
@@ -24,14 +23,18 @@ export type AuthSuccessResult = {
 })
 export class AuthService {
   userDataKey: string = 'cloudike-test-app_user-data';
+  isLoggedIn$ = new BehaviorSubject(false);
 
   constructor(private http: HttpClient,
               private router: Router,
-              private config: ConfigService,
-              private toastr: ToastrService) {
+              private config: ConfigService) {
+    if(this.isLoggedIn()){
+      this.isLoggedIn$.next(true)
+    }
   }
 
   logout() {
+    this.isLoggedIn$.next(false);
     this.clearUserData();
     if (!this.getLocalToken()) {
       this.router.navigateByUrl('/sign-in');
@@ -107,10 +110,11 @@ export class AuthService {
   private loginSucess = (response: AuthSuccessResult) =>{
     const {token, userid} = response;
     if (token) {
+      this.isLoggedIn$.next(true);
       this.saveUserDataLocally({token, userid});
       this.router.navigateByUrl('');
     }
-  }
+  };
 
   public getLocalToken() {
     const userData = this.getUserData();
