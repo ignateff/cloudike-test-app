@@ -1,6 +1,19 @@
-<div class="month" *ngFor="let group of groups">
-  <h3>{{ group.month}}</h3>
-  <a [routerLink]="['preview',image.image_preview.href]" *ngFor="let image of group.items">
-    <img [src]="image.image_middle.href" alt="">
-  </a>
+<div *ngIf="groups.length === 0 && !showSpinner" class="timeline__placeholder">
+  <p class="timeline__placeholder-text">There are no pictures here</p>
 </div>
+<div class="timeline" *ngFor="let group of groups">
+  <div class="timeline__group">
+    <h3 class="timeline__group-title">{{ group.month}}</h3>
+    <div class="timeline__group-content">
+      <a class="timeline__group-link" [routerLink]="['preview',image.image_preview.href]" *ngFor="let image of group.items">
+        <figure class="timeline__group-figure">
+          <img class="timeline__group-img" [src]="image.image_middle.href" alt="">
+          <figcaption class="timeline__group-figcaption">
+            {{ image.created | date }}
+          </figcaption>
+        </figure>
+      </a>
+    </div>
+  </div>
+</div>
+<div *ngIf="showSpinner" class="timeline__spinner common__spinner"></div>

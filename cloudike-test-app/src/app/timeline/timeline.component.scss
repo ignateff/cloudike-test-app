@@ -1,0 +1,54 @@
+@import "../../shared/styles/variables";
+:host{
+  width: 100%;
+  height: 100vh;
+  position: relative;
+}
+
+.timeline {
+  min-height: 420px;
+  position: relative;
+  &__group {
+    padding: 15px;
+    &-title {
+      color: $text-color;
+      font-size: 18px;
+      font-weight: normal;
+    }
+    &-content {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    &-link {
+      display: flex;
+      flex-flow: column;
+      text-decoration: none;
+      margin: 0 10px 10px 0;
+    }
+    &-img {
+      display: flex;
+      max-width: 100%;
+    }
+    &-figure {
+      margin: 0;
+      max-width: 257px;
+      padding: 5px;
+      background-color: #fff;
+    }
+    &-figcaption {
+      padding-top: 5px;
+      font-size: 12px;
+      color: $text-color;
+    }
+  }
+  &__placeholder {
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+    background-color: #fff;
+    margin: 15px;
+    &-text {
+      color: $text-color;
+    }
+  }
+}

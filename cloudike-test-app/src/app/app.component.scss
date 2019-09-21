@@ -7,7 +7,11 @@
   &__logo{
     font-family: 'Poiret One', cursive;
     font-size: 20px;
-    color: $text-color;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 25px;
+    background-color: $text-color;
+    text-decoration: none;
   }
   &__header{
     background-color: #fff;

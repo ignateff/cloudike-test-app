@@ -8,14 +8,16 @@ import {TimelineService} from "./timeline.service";
 })
 export class TimelineComponent implements OnInit {
   public groups = [];
-
+  public showSpinner: boolean = false;
   constructor(private timelineService: TimelineService) {}
 
   ngOnInit() {
+    this.showSpinner = true;
     this.timelineService.getPhotos().subscribe((photos) => {
       this.groups = this.timelineService.groupByMonths(photos);
       this.preload(this.groups);
     }, (error) => {
+      this.showSpinner = false;
       console.log('get photos error', error);
     })
   }
@@ -30,5 +32,6 @@ export class TimelineComponent implements OnInit {
         images[index].src = item.image_preview.href
       })
     });
+    this.showSpinner = false;
   }
 }
