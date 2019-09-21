@@ -1,8 +1,10 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {ConfigService} from "../config.service";
 import {ToastrService} from "ngx-toastr";
+import {catchError, tap} from "rxjs/operators";
+import {throwError} from "rxjs";
 
 export type AuthSuccessResult = {
   created: number,
@@ -42,12 +44,12 @@ export class AuthService {
 
   public loginByEmail(email: string, password: string) {
     const phone = '';
-    this.login({email, password, phone})
+    return this.login({email, password, phone})
   }
 
   public loginByPhone(phone: string, password: string) {
     const email = '';
-    this.login({phone, password, email})
+    return this.login({phone, password, email})
   }
 
   private login({email, phone, password}) {
@@ -59,21 +61,10 @@ export class AuthService {
       loginObservable$ = this.http.post(this.config.getLoginWithPhoneUrl(), {phone, password})
     }
     if (loginObservable$) {
-      loginObservable$
-        .subscribe((result: AuthSuccessResult) => {
-          const {token, userid} = result;
-          if (token) {
-            this.saveUserDataLocally({token, userid});
-            this.router.navigateByUrl('');
-          }
-        }, (error) => {
-          this.clearUserData();
-          const errorMsg = error.statusText;
-          if (errorMsg) {
-            this.toastr.error('Sign-in error: ' + errorMsg);
-          }
-          console.log('error', error);
-        })
+      return loginObservable$.pipe(
+        tap(this.loginSucess),
+        catchError(this.handleError)
+      )
     }
   }
 
@@ -105,6 +96,20 @@ export class AuthService {
       console.log('error of getting user token', e);
     }
     return userData;
+  }
+
+  private handleError = (errorResponse: HttpErrorResponse) => {
+    this.clearUserData();
+    const errorMsg = errorResponse.statusText;
+    return throwError(errorMsg);
+  };
+
+  private loginSucess = (response: AuthSuccessResult) =>{
+    const {token, userid} = response;
+    if (token) {
+      this.saveUserDataLocally({token, userid});
+      this.router.navigateByUrl('');
+    }
   }
 
   public getLocalToken() {
