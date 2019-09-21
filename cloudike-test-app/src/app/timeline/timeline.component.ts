@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {TimelineService} from "./timeline.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-timeline',
@@ -9,7 +10,8 @@ import {TimelineService} from "./timeline.service";
 export class TimelineComponent implements OnInit {
   public groups = [];
   public showSpinner: boolean = false;
-  constructor(private timelineService: TimelineService) {}
+  constructor(private timelineService: TimelineService,
+              private toastr: ToastrService) {}
 
   ngOnInit() {
     this.showSpinner = true;
@@ -18,11 +20,10 @@ export class TimelineComponent implements OnInit {
       this.preload(this.groups);
     }, (error) => {
       this.showSpinner = false;
+      this.toastr.error('Image loading error: ' + error);
       console.log('get photos error', error);
     })
   }
-
-
 
   preload(groups) {
     const images = [];

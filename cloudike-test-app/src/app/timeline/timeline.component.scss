@@ -1,5 +1,7 @@
 @import "../../shared/styles/variables";
-:host{
+@import "../../shared/styles/misins";
+
+:host {
   width: 100%;
   height: 100vh;
   position: relative;
@@ -9,15 +11,20 @@
   min-height: 420px;
   position: relative;
   &__group {
-    padding: 15px;
+    padding: 15px 15px 0 15px;
     &-title {
       color: $text-color;
       font-size: 18px;
       font-weight: normal;
+      margin: 0 0 10px 0;
     }
     &-content {
       display: flex;
       flex-wrap: wrap;
+      justify-content: center;
+      @include bp-xsm {
+        justify-content: flex-start;
+      }
     }
     &-link {
       display: flex;

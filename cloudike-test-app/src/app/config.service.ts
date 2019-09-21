@@ -10,6 +10,7 @@ export class ConfigService {
   private phoneNumberRegExp: RegExp = /^\++\d{11}$/g;
   private loginWithEmailUrl: string = '/api/2/accounts/login/';
   private loginWithPhoneUrl: string = '/api/2/accounts/login_by_phone/';
+  private authHeaderName: string = 'Mountbit-Auth';
 
   constructor() {
   }
@@ -32,5 +33,13 @@ export class ConfigService {
 
   getLoginWithPhoneUrl(){
     return this.getBaseApiUrl()+this.loginWithPhoneUrl
+  }
+
+  getPhotosUrl(userId){
+    return this.getBaseApiUrl()+`/api/2/users/${userId}/photos/`
+  }
+
+  getAuthHeaderName(){
+    return this.authHeaderName;
   }
 }

@@ -1,0 +1,33 @@
+@import "variables";
+
+@mixin bp-xs {
+  @media only screen and (min-width: $screen-xs-min) {
+    @content;
+  }
+}
+
+@mixin bp-xsm {
+  @media only screen and (min-width: $screen-xsm-min) {
+    @content;
+  }
+}
+
+@mixin bp-sm {
+  @media only screen and (min-width: $screen-sm-min) {
+    @content;
+  }
+}
+
+@mixin bp-md {
+  @media only screen and (min-width: $screen-md-min) {
+    @content;
+  }
+}
+
+@mixin bp-lg {
+  @media only screen and (min-width: $screen-lg-min) {
+    @content;
+  }
+}
+
+

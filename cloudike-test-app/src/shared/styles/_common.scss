@@ -1,7 +1,7 @@
 @import "variables";
 
-.common{
-  &__btn{
+.common {
+  &__btn {
     padding: 10px 15px;
     border-radius: 3px;
     border: 1px solid #b2caf5;
@@ -14,6 +14,16 @@
     }
     &:hover {
       background-color: lighten($text-color, 10px);
+    }
+    &_outline {
+      background-color: #fff;
+      border-color: $text-color;
+      color: $text-color;
+      transition: background-color .3s ease, color .3s ease;
+      &:hover {
+        color: white;
+        background-color: $text-color;
+      }
     }
   }
   &__spinner {

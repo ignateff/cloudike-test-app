@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 import {AuthService} from "../auth/auth.service";
-import {switchMap, map, groupBy, mergeMap, reduce, scan, tap} from "rxjs/operators";
-import {of} from "rxjs";
+import {switchMap, map, groupBy, mergeMap, reduce, scan, tap, catchError} from "rxjs/operators";
+import {of, throwError} from "rxjs";
 import {ConfigService} from "../config.service";
 
 @Injectable({
@@ -19,12 +19,11 @@ export class TimelineService {
     const userId = this.auth.getUserId();
     const userToken = this.auth.getLocalToken();
     if (userToken && userId) {
-      const url = `${this.config.getBaseApiUrl()}/api/2/users/${userId}/photos/`;
-      const headerName = 'Mountbit-Auth';
+      const url = this.config.getPhotosUrl(userId);
+      const headerName = this.config.getAuthHeaderName();
       const httpOptions = {
         headers: new HttpHeaders({
-          [headerName]: userToken,
-          'Content-Type': 'application/json'
+          [headerName]: userToken
         })
       };
       return this.http.get(url, httpOptions).pipe(
@@ -45,24 +44,25 @@ export class TimelineService {
               image_small
             }
           });
-        })
+        }),
+        catchError(this.handleError)
       )
     }
   }
 
-  groupByMonths(photos){
-    const sortedResult = photos.sort((a,b)=> b.created - a.created);
+  groupByMonths(photos) {
+    const sortedResult = photos.sort((a, b) => b.created - a.created);
     const groupedByMonths = {};
     const monthsNames = this.config.getMonthsNames();
-    for(let item of sortedResult){
-      if(groupedByMonths[item.created_month]){
+    for (let item of sortedResult) {
+      if (groupedByMonths[item.created_month]) {
         groupedByMonths[item.created_month].push(item);
       } else {
         groupedByMonths[item.created_month] = [item];
       }
     }
     const groups = [];
-    for(let month in groupedByMonths){
+    for (let month in groupedByMonths) {
       let group = {
         month: monthsNames[month],
         items: groupedByMonths[month]
@@ -71,4 +71,9 @@ export class TimelineService {
     }
     return groups;
   }
+
+  private handleError = (errorResponse: HttpErrorResponse) => {
+    const errorMsg = errorResponse.statusText;
+    return throwError(errorMsg);
+  };
 }

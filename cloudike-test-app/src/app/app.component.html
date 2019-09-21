@@ -1,7 +1,9 @@
 <div class="app">
   <header *ngIf="isLoggedIn" class="app__header">
-    <a  class="app__logo" [routerLink]="['']">Cludike test app</a>
-    <button class="app__btn common__btn" (click)="logout()">Logout</button>
+    <a  class="app__logo app__logo_lg" [routerLink]="['']">Cludike test app</a>
+    <a  class="app__logo app__logo_sm" [routerLink]="['']">Cd</a>
+    <button type="button" *ngIf="showBack" class="app__btn app__btn_back common__btn common__btn_outline" (click)="back()">Back</button>
+    <button type="button" class="app__btn common__btn" (click)="logout()">Logout</button>
   </header>
   <main class="app__main">
     <router-outlet></router-outlet>

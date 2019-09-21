@@ -4,6 +4,7 @@ import {AuthService} from "../auth/auth.service";
 import {log} from "util";
 import {ConfigService} from "../config.service";
 import {ToastrService} from "ngx-toastr";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-sign-in',
@@ -19,11 +20,15 @@ export class SignInComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private authService: AuthService,
               private config: ConfigService,
-              private toastr: ToastrService) {
+              private toastr: ToastrService,
+              private router: Router) {
     this.setFormGroup()
   }
 
   ngOnInit() {
+    if (this.authService.isLoggedIn()) {
+      this.router.navigateByUrl('/')
+    }
   }
 
   submitForm() {

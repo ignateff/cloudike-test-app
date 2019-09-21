@@ -1,10 +1,12 @@
 @import "../shared/styles/variables";
+@import "../shared/styles/misins";
 
-.app{
+.app {
+  $root: &;
   display: flex;
   flex-flow: column;
   height: 100%;
-  &__logo{
+  &__logo {
     font-family: 'Poiret One', cursive;
     font-size: 20px;
     color: white;
@@ -12,8 +14,20 @@
     border-radius: 25px;
     background-color: $text-color;
     text-decoration: none;
+    &_lg {
+      display: none;
+      @include bp-sm {
+        display: flex;
+      }
+    }
+    &_sm {
+      display: flex;
+      @include bp-sm {
+        display: none;
+      }
+    }
   }
-  &__header{
+  &__header {
     background-color: #fff;
     padding: 0 15px;
     height: 60px;
@@ -21,8 +35,14 @@
     align-items: center;
     justify-content: space-between;
   }
-  &__main{
+  &__main {
     display: flex;
     flex-flow: column;
+  }
+  &__btn {
+    &_back {
+      margin-left: 10px;
+      margin-right: auto;
+    }
   }
 }

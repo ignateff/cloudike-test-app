@@ -28,7 +28,7 @@ export class AuthService {
   constructor(private http: HttpClient,
               private router: Router,
               private config: ConfigService) {
-    if(this.isLoggedIn()){
+    if (this.isLoggedIn()) {
       this.isLoggedIn$.next(true)
     }
   }
@@ -107,7 +107,7 @@ export class AuthService {
     return throwError(errorMsg);
   };
 
-  private loginSucess = (response: AuthSuccessResult) =>{
+  private loginSucess = (response: AuthSuccessResult) => {
     const {token, userid} = response;
     if (token) {
       this.isLoggedIn$.next(true);
