@@ -11,6 +11,7 @@ export class ConfigService {
   private loginWithEmailUrl: string = '/api/2/accounts/login/';
   private loginWithPhoneUrl: string = '/api/2/accounts/login_by_phone/';
   private authHeaderName: string = 'Mountbit-Auth';
+  private middlePhotoPlaceholder: string = '/assets/img/placeholder-images-image_large.png';
 
   constructor() {
   }
@@ -41,5 +42,9 @@ export class ConfigService {
 
   getAuthHeaderName(){
     return this.authHeaderName;
+  }
+
+  getMiddlePhotoPlaceholderUrl(){
+    return this.middlePhotoPlaceholder
   }
 }

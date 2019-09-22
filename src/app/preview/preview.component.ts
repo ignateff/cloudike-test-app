@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {map, tap} from "rxjs/operators";
+import {map} from "rxjs/operators";
 import {ActivatedRoute, Router} from "@angular/router";
-import {noop} from "rxjs";
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-preview',
@@ -12,15 +12,19 @@ export class PreviewComponent implements OnInit {
 
   imgUrl: string = '';
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute,
+              private router: Router) {
   }
 
   ngOnInit() {
     this.route.paramMap
       .pipe(map((param) => param.get('imgUrl')))
       .subscribe((imgUrl) => {
-        this.imgUrl = imgUrl
+        if (imgUrl === null) {
+          this.router.navigateByUrl('');
+        } else {
+          this.imgUrl = imgUrl
+        }
       })
   }
-
 }

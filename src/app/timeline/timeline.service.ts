@@ -33,10 +33,11 @@ export class TimelineService {
         }),
         map((result: any) => {
           return result._embedded.items.map((item) => {
-            const {created} = item;
+            const {created, id} = item;
             const {image_middle, image_preview, image_small} = item._links;
             const created_month = new Date(created).getMonth();
             return {
+              id,
               created_month,
               created,
               image_middle,

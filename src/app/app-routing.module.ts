@@ -7,9 +7,10 @@ import {PreviewComponent} from "./preview/preview.component";
 
 
 const routes: Routes = [
-  {path: '', component: TimelineComponent, canActivate:[AuthGuard]},
+  {path: '', component: TimelineComponent, canActivate: [AuthGuard]},
   {path: 'sign-in', component: SignInComponent},
-  { path: 'preview/:imgUrl', component: PreviewComponent }];
+  {path: 'preview/:imgUrl', component: PreviewComponent, canActivate: [AuthGuard]},
+  {path: 'preview', component: PreviewComponent, canActivate: [AuthGuard]}];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

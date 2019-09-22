@@ -7,7 +7,8 @@
     <div class="timeline__group-content">
       <a class="timeline__group-link" [routerLink]="['preview',image.image_preview.href]" *ngFor="let image of group.items">
         <figure class="timeline__group-figure">
-          <img class="timeline__group-img" [src]="image.image_middle.href" alt="">
+          <img class="timeline__group-img" *ngIf="image.image_middle.href" [src]="image.image_middle.href" [alt]="'Photo #'+ image.id">
+          <img class="timeline__group-img" *ngIf="!image.image_middle.href" [src]="middlePhotoPlaceholderUrl" alt="Photo placeholder">
           <figcaption class="timeline__group-figcaption">
             {{ image.created | date }}
           </figcaption>

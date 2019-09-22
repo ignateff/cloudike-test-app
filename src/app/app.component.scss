@@ -2,7 +2,6 @@
 @import "../shared/styles/misins";
 
 .app {
-  $root: &;
   display: flex;
   flex-flow: column;
   height: 100%;
@@ -30,7 +29,7 @@
   &__header {
     background-color: #fff;
     padding: 0 15px;
-    height: 60px;
+    height: #{$header-height}px;
     display: flex;
     align-items: center;
     justify-content: space-between;

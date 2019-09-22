@@ -1,6 +1,5 @@
 <div class="preview">
-  <figure class="preview__figure">
+  <figure *ngIf="imgUrl" class="preview__figure">
     <div class="preview__figure-img-holder" [ngStyle]="{'background-image':'url('+imgUrl+')'}"></div>
   </figure>
 </div>
-

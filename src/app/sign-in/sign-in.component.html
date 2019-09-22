@@ -10,20 +10,20 @@
   <form class="sign-in__form" [formGroup]="signInForm" (ngSubmit)="submitForm()">
     <div class="sign-in__input-ctrl" *ngIf="signInType === 'email'">
       <label class="sign-in__label" for="email">Email</label>
-      <input id="email" class="sign-in__input" [ngClass]="{'sign-in__input_error':(email.invalid && (email.dirty || email.touched))}" type="text" formControlName="email">
+      <input id="email" class="sign-in__input" [ngClass]="{'sign-in__input_error':(email.invalid && (email.dirty || email.touched))}" type="email" formControlName="email">
       <div *ngIf="email.invalid && (email.dirty || email.touched)"
            class="sign-in__error">
         <div *ngIf="email.errors.required">
           Name is required.
         </div>
-        <div *ngIf="email.errors.phoneValidator">
+        <div *ngIf="email.errors.email">
           Login should be email
         </div>
       </div>
     </div>
     <div class="sign-in__input-ctrl" *ngIf="signInType === 'phone'">
       <label class="sign-in__label" for="phone">Phone</label>
-      <input id="phone" class="sign-in__input" [ngClass]="{'sign-in__input_error':(phone.invalid && (phone.dirty || phone.touched))}" type="text" formControlName="phone">
+      <input id="phone" class="sign-in__input" [ngClass]="{'sign-in__input_error':(phone.invalid && (phone.dirty || phone.touched))}" type="tel" formControlName="phone">
       <div *ngIf="phone.invalid && (phone.dirty || phone.touched)"
            class="sign-in__error">
         <div *ngIf="phone.errors.required">
