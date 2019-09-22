@@ -14,7 +14,7 @@
       <div *ngIf="email.invalid && (email.dirty || email.touched)"
            class="sign-in__error">
         <div *ngIf="email.errors.required">
-          Name is required.
+          Email is required.
         </div>
         <div *ngIf="email.errors.email">
           Login should be email
@@ -27,7 +27,7 @@
       <div *ngIf="phone.invalid && (phone.dirty || phone.touched)"
            class="sign-in__error">
         <div *ngIf="phone.errors.required">
-          Name is required.
+          Phone is required.
         </div>
         <div *ngIf="phone.errors.phoneValidator">
           Login should be phone number
@@ -36,11 +36,11 @@
     </div>
     <div class="sign-in__input-ctrl">
       <label class="sign-in__label" for="password">Password:</label>
-      <input id="password" class="sign-in__input" [ngClass]="{'sign-in__input_error':(password.invalid && (password.dirty || password.touched))}"  type="text" formControlName="password">
+      <input id="password" class="sign-in__input" [ngClass]="{'sign-in__input_error':(password.invalid && (password.dirty || password.touched))}"  type="password" formControlName="password">
       <div *ngIf="password.invalid && (password.dirty || password.touched)"
            class="sign-in__error">
         <div *ngIf="password.errors.required">
-          Name is required.
+          Password is required.
         </div>
       </div>
     </div>

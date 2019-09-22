@@ -10,7 +10,11 @@
     cursor: pointer;
     transition: background-color .3s ease;
     &:disabled {
+      cursor: default;
       background-color: gray;
+      &:hover{
+        background-color: gray;
+      }
     }
     &:hover {
       background-color: lighten($text-color, 10px);
